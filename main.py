@@ -1,7 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routes.karyawan import karyawan
+from routes.client import client
 # from fastapi_simple_security import api_key_router, api_key_security
 # from fastapi import Depends, FastAPI
 
@@ -17,7 +17,7 @@ def cors_headers(app):
         )
     return app
 
-app.include_router(karyawan)
+app.include_router(client)
 @app.get("/")
 async def root():
     return {"message": "TesAPI GRB"}
