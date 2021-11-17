@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 
 class ClientSchema(BaseModel):
-    regno: int = Field(..., min_length=1, max_length=11)
+    regno: int = Field(default=None)
     serial: str = Field(..., min_length=3, max_length=19)
     duedate: date = Field(...)
     name: str = Field(..., min_length=3, max_length=70)

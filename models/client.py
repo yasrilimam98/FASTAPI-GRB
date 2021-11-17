@@ -8,14 +8,14 @@ from sqlalchemy import (
 from sqlalchemy.sql.sqltypes import Date
 
 metadata = MetaData()
-Mclient = Table(
+Client = Table(
     "mclient", metadata,
-    Column("id", Integer(11), primary_key=True, index=True),
-    Column("regno", Integer(11), nullable=False),
+    Column("id", Integer, primary_key=True, index=True),
+    Column("regno", Integer, nullable=False),
     Column("serial", String(19)),
     Column("duedate", Date()),
     Column("name", String(70)),
-    Column("db_name", String(25)),
+    Column("dbname", String(25)),
     Column("dbport", String(5)),
     Column("localnetwork", String(12)),
     Column("localport", String(5)),

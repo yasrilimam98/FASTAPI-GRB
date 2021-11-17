@@ -1,39 +1,34 @@
 from schemas.client import ClientSchema, Clients
-from models.client import Mclient
+from models.client import Client
 from fastapi import APIRouter, Response, status
 from config.database import conn
-from fastapi import FastAPI, Depends, HTTPException
-from auth import AuthHandler
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-
+# from config.database import Base
 
 
 client = APIRouter() 
 
-auth_handler = AuthHandler()
-users = []
 
 @client.get('/Client/all', response_model=Clients,
              description="Menampilkan semua data")
 async def find_all_client(limit: int = 10, offset: int = 0):
-    query = Mclient.select().offset(offset).limit(limit)
+    query = Client.select().offset(offset).limit(limit)
     data = conn.execute(query).fetchall()
     response = {"limit": limit, "offset": offset, "data": data}
     return response
 
-# @karyawan.get('/Karyawan/id',
-#              description="Menampilkan id data")
-# async def find_karyawan(id: int):
-#     query = Karyawan.select().where(Karyawan.c.id_karyawan == id)
+@client.get('/Client/{id}',
+             description="Menampilkan id data client")
+async def find_client(id: int, response: Response):
+    query = Client.select().where(Client.c.id == id)
 
-#     #print(karyawan.c)
-#     data = conn.execute(query).fetchone()
-#     if data is None:
-#         response.status_code = status.HTTP_404_NOT_FOUND
-#         return {"message": "data tidak ditemukan", "status": response.status_code}
+    #print(karyawan.c)
+    data = conn.execute(query).fetchone()
+    if data is None:
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return {"message": "data tidak ditemukan", "status": response.status_code}
 
-#     response = {"message": f"sukses mengambil data dengan id", "id":id, "data": data}
-#     return response
+    response = {"message": f"sukses mengambil data dengan id {id}", "data": data}
+    return response
 
 # @karyawan.post('/karyawan/',status_code=201,
 #               description="Menambah data karyawan")
