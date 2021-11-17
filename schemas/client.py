@@ -25,12 +25,18 @@ class ClientSchema(BaseModel):
 class Client(ClientSchema):
     id: int
 
+
 # list karyawan API
+
 class Clients(BaseModel):
     limit: int = Field(default=5)
     offset: int = Field(default=0)
     data: List[Client]
 
+class ClientRegno(BaseModel):
+    regno: int
+    serial: str
+    data: List[Client]
 
 
 
